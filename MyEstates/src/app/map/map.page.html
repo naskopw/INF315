@@ -1,0 +1,37 @@
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/estates"></ion-back-button>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button side="right" routerLink="/" routerDirection="forward">
+      <ion-icon name="home"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title *ngIf="currentEstate">
+    Ref. No {{currentEstate.refNumber}}
+  </ion-title>
+</ion-toolbar>
+
+<ion-content *ngIf="currentEstate">
+  <agm-map style="height: 90%;" [latitude]="currentEstate.latitude" [longitude]="currentEstate.longitude">
+    <agm-marker [latitude]="currentEstate.latitude" [longitude]="currentEstate.longitude"></agm-marker>
+  </agm-map>
+  <ion-tabs slot="fixed">
+    <ion-tab-bar slot="bottom"> 
+      <ion-tab-button (click)="goToOverview(locationData.location.id, currentEstate.id)">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Overview</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button>
+        <ion-icon name="map"></ion-icon>
+        <ion-label>Map</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button routerLink="/">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Similar</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

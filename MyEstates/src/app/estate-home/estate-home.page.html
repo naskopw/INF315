@@ -1,0 +1,81 @@
+<div *ngIf="locationData?.location && currentEstate?.refNumber">
+ <ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="estates"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/" side="right" routerLink="/" routerDirection="forward">
+         <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="currentEstate">
+      Ref. No {{currentEstate.refNumber}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img [src]="currentEstate.image"></ion-img>
+
+      <ion-button class="ion-margin-top" fill="outline">
+        <ion-icon name="bookmark"></ion-icon>SAVE TO MY ESTATES
+      </ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-text color="dark">{{currentEstate.type}}</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">Area: {{currentEstate.area}}㎡</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-badge>
+              <ion-text>
+                {{currentEstate.bedrooms}}
+              </ion-text>
+            </ion-badge>
+            <ion-text color="dark">
+              Bedrooms
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">
+              Price: ${{currentEstate.price}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-text color="dark">
+            {{currentEstate.address}}
+          </ion-text>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>
+
+<ion-content>
+  <ion-tabs slot="fixed">
+    <ion-tab-bar slot="bottom"> 
+      <ion-tab-button>
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Overview</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="goToMap(locationData.location.id, currentEstate.id)">
+        <ion-icon name="map"></ion-icon>
+        <ion-label>Map</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button routerLink="/">
+        <ion-icon name="home"></ion-icon>
+          <ion-label>Similar</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
