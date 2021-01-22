@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import 'rxjs/add/operator/map';
 import{ HttpClient, HttpHeaders} from "@angular/common/http";
 import { Location } from "../models/location.model";
 import { LocationData } from "../models/location_data.model";

@@ -1,7 +1,5 @@
 {
   "name": "MyEstates",
-  "integrations": {
-    "cordova": {}
-  },
+  "integrations": {},
   "type": "angular"
 }

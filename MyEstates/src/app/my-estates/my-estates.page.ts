@@ -19,7 +19,7 @@ export class MyEstatesPage implements OnInit {
   ngOnInit(): void {
     this.estates = []
     this.storage.get('savedEstates').then(saved => {
-      this.estates = Object.values(saved)
+      this.estates = saved ? Object.values(saved) : []
     })
   }
   public goToLocations(): void {
