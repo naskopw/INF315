@@ -1,0 +1,90 @@
+<div *ngIf="locationData?.location && currentEstate?.refNumber">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="estates"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button side="right" [attr.disabled]="isLoading" (click)="goHome()" routerDirection="forward">
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title *ngIf="currentEstate">
+        Ref. No {{currentEstate.refNumber}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img [src]="currentEstate.image"></ion-img>
+      <ion-button *ngIf="!isSaved" size="small" fill="outline" slot="start" (click)="onSaveButtonClick()">
+        <ion-icon name="bookmark"></ion-icon>
+        Save to my estates
+      </ion-button>
+      <ion-button *ngIf="isSaved" size="small" fill="fill" slot="start" (click)="onRemoveButtonClicked()">
+        <ion-icon name="bookmark"></ion-icon>
+        Remove from saved estates
+      </ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-text color="dark">{{currentEstate.type}}</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">Area: {{currentEstate.area}}㎡</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-badge>
+              <ion-text>
+                {{currentEstate.bedrooms}}
+              </ion-text>
+            </ion-badge>
+            <ion-text color="dark">
+              Bedrooms
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">
+              Price: {{currentEstate.price | currency}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-text color="dark">
+            {{currentEstate.address}}
+          </ion-text>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="tabButtonOne">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Overview</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="goToMap(locationData.location.id, currentEstate.id)">
+        <ion-icon name="map"></ion-icon>
+        <ion-label>Map</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="goToSimilar(locationData.location.id, currentEstate.id)" value="tabButtonThree">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Similar</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

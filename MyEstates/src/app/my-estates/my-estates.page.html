@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Royal Estates</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="success">
+    <ion-title>
+      My Estates
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="estates">
+  <ion-card *ngIf="estates.length>0">
+    <ion-card-content>
+      <ion-label margin-left>Saved estates</ion-label>
+      
+      <ion-list>
+        <ion-item *ngFor="let details of estates">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="details.estate.image"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>Ref No.{{details.estate.refNumber}}</h3>
+            <p>{{details.estate.type}}, {{details.estate.bedrooms}} Bedrooms</p>
+            <p class="ion-text-right">
+              <ion-button (click)="goToOverview(details.location.id,details.estate.id)" color="primary" fill="clear">VIEW</ion-button>
+            </p>
+            <p>{{details.location.name}}, {{details.estate.region}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-button style="padding-left: 22%;" (click)="goToLocations()" href="/locations">
+        <ion-icon slot="start" name="search"></ion-icon>
+        Find Location
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="estates.length===0">
+    <ion-card-content>
+      <ion-label margin-left>No saved estates</ion-label>
+      <ion-button style="padding-left: 22%;" (click)="goToLocations()" href="/locations">
+        <ion-icon slot="start" name="search"></ion-icon>
+        Find Location
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

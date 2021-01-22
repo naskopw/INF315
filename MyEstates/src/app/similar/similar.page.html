@@ -1,0 +1,81 @@
+<ion-header *ngIf="this.estate">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/estates"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button side="right" routerLink="/" routerDirection="forward">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ref. No {{this.estate.refNumber}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment secondary [(ngModel)]="regionFilter" (ionChange)="filterType()">
+      <ion-segment-button value="region">
+        Region
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Filter By Type:
+          <select [(ngModel)]="kindFilter" (change)="filterType()" [(disabled)]="!useDataFilter">
+            <option value="House">House</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Studio">Studio</option>
+          </select>
+        </ion-label>
+        <ion-toggle end-of [(ngModel)]="useDataFilter" (ionChange)="dataChanged()"></ion-toggle>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-virtual-scroll *ngIf="this.similarByType" [items]="this.similarByType" [headerFn]="getHeader">
+    <ion-item-divider *virtualHeader="let header" color="success">
+      <ion-title>{{ header }}</ion-title>
+    </ion-item-divider>
+    <ion-item *virtualItem="let item">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="item.image"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Ref No.{{item.refNumber}}</h3>
+        <p>{{item.type}}, {{item.bedrooms}} Bedrooms</p>
+
+        <p class="ion-text-right" (click)="goToOverview(locationData.location.id, item.id)">
+          <ion-button color="primary" fill="clear">VIEW</ion-button>
+        </p>
+        <p>{{locationData.location.name}}, {{item.region}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button (click)="goToOverview(locationData.location.id, estate.id)" value="tabButtonOne">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Overview</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="goToMap(locationData.location.id, estate.id)" value="tabButtonTwo">
+        <ion-icon name="map"></ion-icon>
+        <ion-label>Map</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="tabButtonThree">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Similar</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
